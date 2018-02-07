@@ -1,14 +1,18 @@
 require 'spreadsheet'
 
-book = Spreadsheet.open 'C:/Users/Shen/Desktop/Workspace/spreadsheet/punchout_characters_v2.xls'
+file = File.open('./punchout_characters_v2.xls')
+
+book = Spreadsheet.open file
 
 catalogue = {}
 book.worksheets.each do |sheet|
-	catalogue[sheet.name.to_sym] = {}
+	my_hash = {}
+	catalogue[sheet.name.to_sym] = my_hash
 	sheet.each do |row|
-		catalogue[sheet.name.to_sym][row[0].to_sym] = [] unless row[0].nil?
+		my_array = []
+		my_hash[row[0].to_sym] = my_array unless row[0].nil?
 		row.each do |cell|
-			catalogue[sheet.name.to_sym][row[0].to_sym].push(cell) unless (cell.nil? || cell == row[0])
+			my_array.push(cell) unless (cell.nil? || cell == row[0])
 		end
 	end
 end
